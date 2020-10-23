@@ -7,4 +7,5 @@
     <dimen name="base_padding">24dp</dimen>
 
     <dimen name="title_text_size">28sp</dimen>
+    <dimen name="button_width">256dp</dimen>
 </resources>

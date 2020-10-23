@@ -5,4 +5,8 @@
     <string name="linear_layout_button_3">button 3</string>
     <string name="linear_layout_button">button %d</string>
     <string name="practice_title">Android practice</string>
+    <string name="hello">Hello!</string>
+    <string name="image_view" translatable="false">Image View</string>
+    <string name="register">Signup</string>
+    <string name="login">Login</string>
 </resources>

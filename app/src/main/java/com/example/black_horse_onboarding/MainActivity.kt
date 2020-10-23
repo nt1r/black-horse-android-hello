@@ -1,5 +1,6 @@
 package com.example.black_horse_onboarding
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,6 +22,13 @@ class MainActivity : AppCompatActivity() {
             val button: MaterialButton = view as MaterialButton
             button.text = String.format(getString(R.string.linear_layout_button), index)
             linearLayout.addView(button)
+
+            if (index == 1) {
+                button.setOnClickListener(View.OnClickListener {
+                    val constraintActivityIntent = Intent(this, ConstraintActivity::class.java)
+                    startActivity(constraintActivityIntent)
+                })
+            }
         }
     }
 }

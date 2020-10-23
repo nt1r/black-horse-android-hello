@@ -5,4 +5,7 @@
     <string name="linear_layout_button_3">按钮 3</string>
     <string name="practice_title">Android 练习</string>
     <string name="linear_layout_button">按钮 %d</string>
+    <string name="hello">欢迎！</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
 </resources>
