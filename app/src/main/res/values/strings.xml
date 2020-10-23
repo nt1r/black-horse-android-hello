@@ -3,4 +3,6 @@
     <string name="linear_layout_button_1">button 1</string>
     <string name="linear_layout_button_2">button 2</string>
     <string name="linear_layout_button_3">button 3</string>
+    <string name="linear_layout_button">button %d</string>
+    <string name="practice_title">Android practice</string>
 </resources>

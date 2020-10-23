@@ -3,4 +3,6 @@
     <string name="linear_layout_button_1">按钮 1</string>
     <string name="linear_layout_button_2">按钮 2</string>
     <string name="linear_layout_button_3">按钮 3</string>
+    <string name="practice_title">Android 练习</string>
+    <string name="linear_layout_button">按钮 %d</string>
 </resources>
