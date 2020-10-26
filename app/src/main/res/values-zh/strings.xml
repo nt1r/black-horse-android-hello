@@ -14,4 +14,5 @@
     <string name="forgot_password">忘记密码？</string>
     <string name="or_connect_with">或者使用</string>
     <string name="sign_up_with_e_mail">使用</string>
+    <string name="choose_contacts">选择联系人</string>
 </resources>

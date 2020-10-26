@@ -36,6 +36,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(loginActivityIntent)
                 })
             }
+
+            if (index == 3) {
+                button.setOnClickListener(View.OnClickListener {
+                    val contactsHomeActivityIntent = Intent(this, ContactsHomeActivity::class.java)
+                    startActivity(contactsHomeActivityIntent)
+                })
+            }
         }
     }
 }

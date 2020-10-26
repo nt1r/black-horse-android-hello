@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactsDetailActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/avatar_man"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/avatar_man"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_man_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/avatar_man"
+        app:layout_constraintTop_toTopOf="@+id/avatar_man" />
+
+    <TextView
+        android:id="@+id/phone_man_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_man"
+        app:layout_constraintStart_toEndOf="@+id/avatar_man" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/avatar_woman"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="48dp"
+        android:src="@drawable/avatar_woman"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_woman_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/avatar_woman"
+        app:layout_constraintTop_toTopOf="@+id/avatar_woman" />
+
+    <TextView
+        android:id="@+id/phone_woman_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_woman"
+        app:layout_constraintStart_toEndOf="@+id/avatar_woman" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
