@@ -21,4 +21,8 @@
     <string name="dialog">dialog</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="java">Java</string>
+    <string name="android">Android</string>
+    <string name="android_article">Android是一个移动端操作系统，可以使用Java和Kotlin语言进行开发</string>
+    <string name="java_article">一个新的Fragment</string>
 </resources>

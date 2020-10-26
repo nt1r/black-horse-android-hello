@@ -43,6 +43,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(contactsHomeActivityIntent)
                 })
             }
+
+            if (index == 4) {
+                button.setOnClickListener(View.OnClickListener {
+                    val fragmentActivityIntent = Intent(this, LanguageActivity::class.java)
+                    startActivity(fragmentActivityIntent)
+                })
+            }
         }
     }
 }
