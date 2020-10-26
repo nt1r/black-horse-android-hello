@@ -9,4 +9,12 @@
     <string name="image_view" translatable="false">Image View</string>
     <string name="register">Signup</string>
     <string name="login">Login</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_connect_with">or connect with</string>
+    <string name="sign_up_with_e_mail">Sign Up with E-mail</string>
+    <string name="facebook_login" translatable="false">login with facebook</string>
+    <string name="twitter_login" translatable="false">login with twitter</string>
 </resources>

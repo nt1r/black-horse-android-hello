@@ -29,6 +29,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(constraintActivityIntent)
                 })
             }
+
+            if (index == 2) {
+                button.setOnClickListener(View.OnClickListener {
+                    val loginActivityIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginActivityIntent)
+                })
+            }
         }
     }
 }

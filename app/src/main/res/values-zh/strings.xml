@@ -6,6 +6,12 @@
     <string name="practice_title">Android 练习</string>
     <string name="linear_layout_button">按钮 %d</string>
     <string name="hello">欢迎！</string>
-    <string name="register">注册</string>
     <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="username_hint">用户名</string>
+    <string name="password_hint">密码</string>
+    <string name="remember_me">记住我</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="or_connect_with">或者使用</string>
+    <string name="sign_up_with_e_mail">使用</string>
 </resources>
