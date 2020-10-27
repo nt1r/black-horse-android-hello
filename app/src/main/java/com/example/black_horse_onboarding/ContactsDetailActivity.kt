@@ -31,7 +31,10 @@ class ContactsDetailActivity : AppCompatActivity() {
         setContentView(R.layout.contacts_detail_layout)
 
         Log.d(TAG, "Detail Activity: onCreate")
+        initComponents()
+    }
 
+    private fun initComponents() {
         val contactMan: ContactVM = ContactVM("", "Dwight", "12345678910")
         val contactWoman: ContactVM = ContactVM("", "Claudette", "10987654321")
 
@@ -63,20 +66,8 @@ class ContactsDetailActivity : AppCompatActivity() {
             setResult(10002, intent)
             finish()
         })
-
         dialogButton.setOnClickListener(View.OnClickListener {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(this)
-            builder.setMessage("Message Dialog")
-                .setPositiveButton(R.string.confirm,
-                    DialogInterface.OnClickListener { dialog, id ->
-
-                    })
-                .setNegativeButton(R.string.cancel,
-                    DialogInterface.OnClickListener { dialog, id ->
-                    })
-            builder.create()
-            builder.show()
+            startActivity(Intent(this, DialogActivity::class.java))
         })
     }
 

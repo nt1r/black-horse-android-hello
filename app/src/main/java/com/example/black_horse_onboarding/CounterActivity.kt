@@ -30,6 +30,7 @@ class CounterActivity : AppCompatActivity() {
         counterButton = findViewById(R.id.counter_button)
         counterButton.text = generateButtonText()
 
+        // 抽象出一个方法
         counterButton.setOnClickListener {
             counter = 0
             counterButton.isEnabled = false

@@ -12,6 +12,8 @@ import com.example.black_horse_onboarding.R
 class MenuFragment : Fragment() {
     private lateinit var androidButton: AppCompatButton
     private lateinit var javaButton: AppCompatButton
+    private lateinit var androidArticleFragment: AndroidArticleFragment
+    private lateinit var javaArticleFragment: JavaArticleFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,13 +24,16 @@ class MenuFragment : Fragment() {
         androidButton = view.findViewById(R.id.android_button)
         javaButton = view.findViewById(R.id.java_button)
 
-        transact(AndroidArticleFragment())
+        androidArticleFragment = AndroidArticleFragment()
+        javaArticleFragment = JavaArticleFragment()
+
+        transact(androidArticleFragment)
 
         androidButton.setOnClickListener {
-            transact(AndroidArticleFragment())
+            transact(androidArticleFragment)
         }
         javaButton.setOnClickListener {
-            transact(JavaArticleFragment())
+            transact(javaArticleFragment)
         }
         return view
     }
