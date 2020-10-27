@@ -12,6 +12,9 @@ class ListActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    private val dataSize: Int = 100
+    private val urlPattern: String = "https://loremflickr.com/180/180?lock="
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_layout)
@@ -28,11 +31,23 @@ class ListActivity : AppCompatActivity() {
 
     private fun initArticleArray(): MutableList<ArticleItem> {
         val articles: MutableList<ArticleItem> = mutableListOf()
-        for (index: Int in 1..20) {
+        for (index: Int in 1..dataSize) {
             val article: ArticleItem = if (index == 1) {
-                ArticleItem(ArticleItem.TYPE_HEADER, "Title ${index - 1}", index - 1, "Description ${index - 1}")
+                ArticleItem(
+                    ArticleItem.TYPE_HEADER,
+                    "Title ${index - 1}",
+                    index - 1,
+                    "Description ${index - 1}",
+                    "$urlPattern$index"
+                )
             } else {
-                ArticleItem(ArticleItem.TYPE_ITEM, "Title ${index - 1}", index - 1, "Description ${index - 1}")
+                ArticleItem(
+                    ArticleItem.TYPE_ITEM,
+                    "Title ${index - 1}",
+                    index - 1,
+                    "Description ${index - 1}",
+                    "$urlPattern$index"
+                )
             }
             articles.add(article)
         }

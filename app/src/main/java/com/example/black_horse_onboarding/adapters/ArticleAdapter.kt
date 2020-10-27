@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.black_horse_onboarding.R
 import com.example.black_horse_onboarding.view_model.ArticleItem
 
@@ -34,6 +36,7 @@ class ArticleAdapter(private val dataset: MutableList<ArticleItem>) :
         val article: ArticleItem = dataset[position]
 
         if (article.type == ArticleItem.TYPE_ITEM) {
+            val avatarImageView = holder.itemView.findViewById<AppCompatImageView>(R.id.list_item_avatar)
             val titleTextView = holder.itemView.findViewById<TextView>(R.id.list_item_title)
             val idTextView = holder.itemView.findViewById<TextView>(R.id.list_item_id)
             val descriptionTextView = holder.itemView.findViewById<TextView>(R.id.list_item_description)
@@ -41,6 +44,10 @@ class ArticleAdapter(private val dataset: MutableList<ArticleItem>) :
             titleTextView.text = article.title
             idTextView.text = article.id.toString()
             descriptionTextView.text = article.description
+
+            Glide.with(holder.itemView.context)
+                .load(article.avatar)
+                .into(avatarImageView)
         }
     }
 
