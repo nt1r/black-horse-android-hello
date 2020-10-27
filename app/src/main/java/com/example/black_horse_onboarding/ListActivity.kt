@@ -29,7 +29,11 @@ class ListActivity : AppCompatActivity() {
     private fun initArticleArray(): MutableList<ArticleItem> {
         val articles: MutableList<ArticleItem> = mutableListOf()
         for (index: Int in 1..20) {
-            val article = ArticleItem("Title $index", index, "Description $index")
+            val article: ArticleItem = if (index == 1) {
+                ArticleItem(ArticleItem.TYPE_HEADER, "Title ${index - 1}", index - 1, "Description ${index - 1}")
+            } else {
+                ArticleItem(ArticleItem.TYPE_ITEM, "Title ${index - 1}", index - 1, "Description ${index - 1}")
+            }
             articles.add(article)
         }
         return articles

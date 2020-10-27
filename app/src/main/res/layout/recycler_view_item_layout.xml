@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/base_margin"
-    android:background="@drawable/list_item_background">
+    android:background="@drawable/list_item_background"
+    android:padding="@dimen/base_padding">
 
     <TextView
         android:id="@+id/list_item_title"
-        android:layout_width="@dimen/avatar_size"
-        android:layout_height="@dimen/avatar_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintStart_toStartOf="parent"
