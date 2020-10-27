@@ -50,6 +50,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(fragmentActivityIntent)
                 })
             }
+
+            if (index == 5) {
+                button.setOnClickListener {
+                    val recyclerViewHomeActivityIntent = Intent(this, RecyclerViewHomeActivity::class.java)
+                    startActivity(recyclerViewHomeActivityIntent)
+                }
+            }
         }
     }
 }

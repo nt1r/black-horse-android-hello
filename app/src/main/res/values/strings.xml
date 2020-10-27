@@ -25,4 +25,5 @@
     <string name="android">Android</string>
     <string name="android_article">Android是一个移动端操作系统，可以使用Java和Kotlin语言进行开发</string>
     <string name="java_article">一个新的Fragment</string>
+    <string name="recycler_view">RecyclerView</string>
 </resources>

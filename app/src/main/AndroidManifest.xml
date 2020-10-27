@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlackHorseOnboarding">
-        <activity android:name=".LanguageActivity"></activity>
+        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".RecyclerViewHomeActivity" />
+        <activity android:name=".LanguageActivity" />
         <activity android:name=".ContactsDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
