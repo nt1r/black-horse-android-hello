@@ -57,6 +57,12 @@ class MainActivity : AppCompatActivity() {
                     startActivity(recyclerViewHomeActivityIntent)
                 }
             }
+
+            if (index == 6) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, CounterActivity::class.java))
+                }
+            }
         }
     }
 }

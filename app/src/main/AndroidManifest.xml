@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlackHorseOnboarding">
+        <activity android:name=".CounterActivity"></activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".RecyclerViewHomeActivity" />
         <activity android:name=".LanguageActivity" />
