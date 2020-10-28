@@ -24,31 +24,31 @@ class MainActivity : AppCompatActivity() {
             linearLayout.addView(button)
 
             if (index == 1) {
-                button.setOnClickListener(View.OnClickListener {
+                button.setOnClickListener {
                     val constraintActivityIntent = Intent(this, ConstraintActivity::class.java)
                     startActivity(constraintActivityIntent)
-                })
+                }
             }
 
             if (index == 2) {
-                button.setOnClickListener(View.OnClickListener {
+                button.setOnClickListener {
                     val loginActivityIntent = Intent(this, LoginActivity::class.java)
                     startActivity(loginActivityIntent)
-                })
+                }
             }
 
             if (index == 3) {
-                button.setOnClickListener(View.OnClickListener {
+                button.setOnClickListener {
                     val contactsHomeActivityIntent = Intent(this, ContactsHomeActivity::class.java)
                     startActivity(contactsHomeActivityIntent)
-                })
+                }
             }
 
             if (index == 4) {
-                button.setOnClickListener(View.OnClickListener {
+                button.setOnClickListener {
                     val fragmentActivityIntent = Intent(this, LanguageActivity::class.java)
                     startActivity(fragmentActivityIntent)
-                })
+                }
             }
 
             if (index == 5) {
@@ -61,6 +61,12 @@ class MainActivity : AppCompatActivity() {
             if (index == 6) {
                 button.setOnClickListener {
                     startActivity(Intent(this, CounterActivity::class.java))
+                }
+            }
+
+            if (index == 7) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, SPActivity::class.java))
                 }
             }
         }
