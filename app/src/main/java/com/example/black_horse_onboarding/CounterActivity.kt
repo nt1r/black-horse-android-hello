@@ -4,19 +4,25 @@ import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.kotlin.toObservable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 const val TIMER_UPDATE: Int = 1
 
 class CounterActivity : AppCompatActivity() {
     private lateinit var counterButton: AppCompatButton
     private lateinit var counters: MutableList<Int>
+    private var currentCount: Int = 0
     private final val maxSecond = 10
     private final val msgWhatTextChanged = 1
     private final val msgWhatEnabledChanged = 2
     private final val TAG: String = "Coroutines"
     private lateinit var timerThread: Thread
+    private lateinit var subscription: Disposable
 
     private val timerHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -33,19 +39,19 @@ class CounterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_counter_layout)
 
-        initThread()
-        initComponents()
-    }
-
-    private fun initThread() {
         counters = mutableListOf()
         for (index in 1..maxSecond) {
             counters.add(index)
         }
 
-        timerThread = Thread {
+        timerThread = initThread()
+        initComponents()
+    }
+
+    private fun initThread(): Thread {
+        return Thread {
             kotlin.run {
-                counters.toObservable()
+                /*counters.toObservable()
                     .subscribeBy(
                         onNext = {
                             Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
@@ -57,9 +63,27 @@ class CounterActivity : AppCompatActivity() {
                         },
                         onError = { it.printStackTrace() },
                         onComplete = {
-
+                            timerHandler.sendEmptyMessage(msgWhatEnabledChanged)
                         }
-                    )
+                    )*/
+
+                currentCount = 0
+                subscription = Observable.interval(1000L, TimeUnit.MILLISECONDS)
+                    .timeInterval()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        timerHandler.sendMessage(Message().apply {
+                            this.what = msgWhatTextChanged
+                            this.arg1 = ++currentCount
+                        })
+                        if (currentCount >= 10) {
+                            timerHandler.sendMessage(Message().apply {
+                                this.what = msgWhatEnabledChanged
+                            })
+                            subscription.dispose()
+                        }
+                    }
             }
         }
     }
@@ -71,6 +95,7 @@ class CounterActivity : AppCompatActivity() {
         counterButton.setOnClickListener {
             Log.d(TAG, "Main Thread: ${Thread.currentThread().name}")
             counterButton.isEnabled = false
+            timerThread = initThread()
             timerThread.start()
         }
     }
