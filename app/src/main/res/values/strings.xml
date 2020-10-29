@@ -30,4 +30,12 @@
     <string name="counter_button_text">Number:</string>
     <string name="save_to_sp">Save to SP</string>
     <string name="launch_new_activity">launch Activity</string>
+    <string name="name">name</string>
+    <string name="gender">gender</string>
+    <string name="age">age</string>
+    <string name="submit">submit</string>
+    <string name="name_invalid_error">Name length should not longer than 8 characters</string>
+    <string name="gender_invalid_error">Gender should be 0 or 1</string>
+    <string name="age_invalid_error">Age should larger than 0 and smaller than 100</string>
+    <string name="empty_error">Should not be empty</string>
 </resources>

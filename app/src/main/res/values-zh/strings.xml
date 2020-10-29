@@ -19,4 +19,12 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="save_to_sp">保存到SP</string>
+    <string name="age">年龄</string>
+    <string name="gender">性别</string>
+    <string name="name">姓名</string>
+    <string name="submit">提交</string>
+    <string name="name_invalid_error">姓名不能超过8个字符</string>
+    <string name="gender_invalid_error">性别只能为0或1</string>
+    <string name="age_invalid_error">年龄只能在0到100之间</string>
+    <string name="empty_error">字段不能为空</string>
 </resources>

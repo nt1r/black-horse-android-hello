@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlackHorseOnboarding">
-        <activity android:name=".SPActivity"></activity>
+        <activity android:name=".ViewActivity" />
+        <activity android:name=".SubmitActivity" />
+        <activity android:name=".SPActivity" />
         <activity
             android:name=".DialogActivity"
             android:theme="@style/dialog_style" />

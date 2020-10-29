@@ -52,41 +52,40 @@ class CounterActivity : AppCompatActivity() {
 
     private fun initThread(): Thread {
         return Thread {
-            kotlin.run {
-                /*counters.toObservable()
-                    .subscribeBy(
-                        onNext = {
-                            Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
-                            SystemClock.sleep(1000L)
-                            val msg = Message()
-                            msg.what = msgWhatTextChanged
-                            msg.arg1 = it
-                            timerHandler.sendMessage(msg)
-                        },
-                        onError = { it.printStackTrace() },
-                        onComplete = {
-                            timerHandler.sendEmptyMessage(msgWhatEnabledChanged)
-                        }
-                    )*/
-
-                currentCount = 0
-                subscription = Observable.interval(1000L, TimeUnit.MILLISECONDS)
-                    .timeInterval()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        timerHandler.sendMessage(Message().apply {
-                            this.what = msgWhatTextChanged
-                            this.arg1 = ++currentCount
-                        })
-                        if (currentCount >= 10) {
-                            timerHandler.sendMessage(Message().apply {
-                                this.what = msgWhatEnabledChanged
-                            })
-                            subscription.dispose()
-                        }
+            /*counters.toObservable()
+                .subscribeBy(
+                    onNext = {
+                        Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+                        SystemClock.sleep(1000L)
+                        val msg = Message()
+                        msg.what = msgWhatTextChanged
+                        msg.arg1 = it
+                        timerHandler.sendMessage(msg)
+                    },
+                    onError = { it.printStackTrace() },
+                    onComplete = {
+                        timerHandler.sendEmptyMessage(msgWhatEnabledChanged)
                     }
-            }
+                )*/
+
+            currentCount = 0
+            subscription = Observable.interval(1000L, TimeUnit.MILLISECONDS)
+                .timeInterval()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    timerHandler.sendMessage(Message().apply {
+                        this.what = msgWhatTextChanged
+                        this.arg1 = ++currentCount
+                    })
+                    if (currentCount >= 10) {
+                        timerHandler.sendMessage(Message().apply {
+                            this.what = msgWhatEnabledChanged
+                        })
+                        subscription.dispose()
+                    }
+                }
+
         }
     }
 

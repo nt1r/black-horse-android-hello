@@ -69,6 +69,18 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, SPActivity::class.java))
                 }
             }
+
+            if (index == 8) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, SubmitActivity::class.java))
+                }
+            }
+
+            if (index == 9) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, ViewActivity::class.java))
+                }
+            }
         }
     }
 }
