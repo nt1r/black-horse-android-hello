@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.black_horse_onboarding.network.PersonWrapper
 import com.example.black_horse_onboarding.network.TWCService
 import com.google.gson.JsonObject
 import kotlinx.coroutines.GlobalScope
@@ -34,18 +35,21 @@ class NetworkActivity : AppCompatActivity() {
         button.setOnClickListener {
             GlobalScope.launch {
                 val twcService = buildTWCService()
-                val call: Call<JsonObject> = twcService.getFakeData()
-                call.enqueue(object : Callback<JsonObject> {
-                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val call: Call<PersonWrapper> = twcService.getFakeData()
+                call.enqueue(object : Callback<PersonWrapper> {
+                    override fun onResponse(call: Call<PersonWrapper>, response: Response<PersonWrapper>) {
                         if (response.isSuccessful) {
-                            Log.d(TAG, response.body()!!.toString())
-                            runOnUiThread {
-                                Toast.makeText(this@NetworkActivity, "Success", Toast.LENGTH_LONG).show()
+                            val wrapper = response.body()
+                            Log.d(TAG, wrapper!!.toString())
+                            if (wrapper.data.isNotEmpty()) {
+                                runOnUiThread {
+                                    Toast.makeText(this@NetworkActivity, wrapper.data[0].name, Toast.LENGTH_LONG).show()
+                                }
                             }
                         }
                     }
 
-                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    override fun onFailure(call: Call<PersonWrapper>, t: Throwable) {
                         Log.d(TAG, t.stackTraceToString())
                         runOnUiThread {
                             Toast.makeText(this@NetworkActivity, "Failed", Toast.LENGTH_LONG).show()
