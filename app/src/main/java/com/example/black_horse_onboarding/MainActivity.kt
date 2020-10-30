@@ -9,7 +9,7 @@ import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var linearLayout: LinearLayout
-    private val BUTTON_COUNT: Int = 10
+    private val BUTTON_COUNT: Int = 20
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +79,12 @@ class MainActivity : AppCompatActivity() {
             if (index == 9) {
                 button.setOnClickListener {
                     startActivity(Intent(this, ViewActivity::class.java))
+                }
+            }
+
+            if (index == 10) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, NetworkActivity::class.java))
                 }
             }
         }

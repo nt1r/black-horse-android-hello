@@ -38,4 +38,5 @@
     <string name="gender_invalid_error">Gender should be 0 or 1</string>
     <string name="age_invalid_error">Age should larger than 0 and smaller than 100</string>
     <string name="empty_error">Should not be empty</string>
+    <string name="retrofit">retrofit</string>
 </resources>
