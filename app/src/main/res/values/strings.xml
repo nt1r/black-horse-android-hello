@@ -39,4 +39,7 @@
     <string name="age_invalid_error">Age should larger than 0 and smaller than 100</string>
     <string name="empty_error">Should not be empty</string>
     <string name="retrofit">retrofit</string>
+    <string name="clear_button_text">Clear</string>
+    <string name="increase">Increase</string>
+    <string name="zero">0</string>
 </resources>

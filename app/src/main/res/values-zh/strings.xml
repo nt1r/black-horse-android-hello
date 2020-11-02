@@ -27,4 +27,5 @@
     <string name="gender_invalid_error">性别只能为0或1</string>
     <string name="age_invalid_error">年龄只能在0到100之间</string>
     <string name="empty_error">字段不能为空</string>
+    <string name="clear_button_text">清空</string>
 </resources>

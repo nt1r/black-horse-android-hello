@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlackHorseOnboarding">
-        <activity android:name=".NetworkActivity"></activity>
+        <activity android:name=".ArchActivity" />
+        <activity android:name=".NetworkActivity" />
         <activity android:name=".ViewActivity" />
         <activity android:name=".SubmitActivity" />
         <activity android:name=".SPActivity" />

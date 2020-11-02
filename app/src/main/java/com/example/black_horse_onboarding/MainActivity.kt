@@ -87,6 +87,12 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, NetworkActivity::class.java))
                 }
             }
+
+            if (index == 11) {
+                button.setOnClickListener {
+                    startActivity(Intent(this, ArchActivity::class.java))
+                }
+            }
         }
     }
 }
