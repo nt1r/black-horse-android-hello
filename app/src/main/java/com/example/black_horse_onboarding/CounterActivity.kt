@@ -22,7 +22,10 @@ class CounterActivity : AppCompatActivity() {
     private val SPACE_FLOW_FLOWABLE_COROUTINES_DELAY: Int = 2
     private val SPACE_FLOW_THREAD_SLEEP: Int = 3
     private val TIME_FLOW_INTERVAL: Int = 4
-    private val method: Int = SPACE_FLOW_FLOWABLE_COROUTINES_DELAY
+    private val THREAD_METHOD: Int = 5
+    private val COROUTINES_METHOD: Int = 6
+    private val REACTIVEX_METHOD: Int = 7
+    private final val method: Int = TIME_FLOW_INTERVAL
 
     private lateinit var counterButton: AppCompatButton
     private lateinit var counters: MutableList<Int>
@@ -78,8 +81,65 @@ class CounterActivity : AppCompatActivity() {
                 TIME_FLOW_INTERVAL -> {
                     timeFlowInterval()
                 }
+                THREAD_METHOD -> {
+                    threadMethod()
+                }
+                COROUTINES_METHOD -> {
+                    coroutinesMethod()
+                }
+                REACTIVEX_METHOD -> {
+                    reactivexMethod()
+                }
             }
         }
+    }
+
+    private fun reactivexMethod() {
+        counters.toFlowable()
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeOn(Schedulers.io())
+            .subscribeBy(
+                onNext = { counter ->
+                    runBlocking {
+                        Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+                        delay(1000L)
+//                        updateButtonText(counter)
+                        updateButtonTextWithRunOnUiThread(counter)
+                    }
+                },
+                onError = { it.printStackTrace() },
+                onComplete = {
+//                    setButtonEnabled(true)
+                    updateButtonEnabledWithRunOnUiThread()
+                }
+            )
+    }
+
+    private fun coroutinesMethod() {
+        GlobalScope.launch(Dispatchers.IO) {
+            currentCount = 0
+            repeat(maxSecond) {
+                delay(1000L)
+                currentCount++
+                updateButtonTextWithRunOnUiThread(currentCount)
+            }
+            updateButtonEnabledWithRunOnUiThread()
+        }
+    }
+
+    private fun threadMethod() {
+        timerThread = Thread {
+            currentCount = 0
+            repeat(maxSecond) {
+                SystemClock.sleep(1000L)
+                currentCount++
+                updateButtonTextWithRunOnUiThread(currentCount)
+            }
+            updateButtonEnabledWithRunOnUiThread()
+        }
+        timerThread.start()
     }
 
     private fun spaceFlowFlowableCoroutinesDelay() {
@@ -104,18 +164,32 @@ class CounterActivity : AppCompatActivity() {
     }
 
     private fun timeFlowInterval() {
-        currentCount = 0
-        subscription = Observable.interval(1000L, TimeUnit.MILLISECONDS)
+        subscription = Observable.interval(1L, TimeUnit.SECONDS)
             .timeInterval()
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                updateButtonTextWithRunOnUiThread(++currentCount)
-                if (currentCount >= 10) {
-                    updateButtonEnabledWithRunOnUiThread()
-                    subscription.dispose()
-                }
+            .takeWhile {
+                it.value() < 10
             }
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .observeOn(Schedulers.io())
+//            .subscribe {
+//                Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+////                Log.d(TAG, "it: ${it.value()}")
+//                updateButtonTextWithRunOnUiThread((it.value() + 1).toInt())
+//            }
+            .subscribeBy(
+                onNext = { counter ->
+                    Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+                    updateButtonTextWithRunOnUiThread((counter.value() + 1).toInt())
+                },
+                onError = { it.printStackTrace() },
+                onComplete = {
+                    updateButtonEnabledWithRunOnUiThread()
+                }
+            )
+        // subscribeOn和observeOn的含义
+        // 单独用Thread、Coroutines和Rx实现一遍
     }
 
     private fun spaceFlowThreadSleep() {

@@ -60,6 +60,10 @@ class NetworkActivity : AppCompatActivity() {
         }
     }
 
+    // 点击按钮后的网络请求需要一定耗时（3 second），场景：
+    // 1 second之后跳转到新的activity，能否正常工作
+    // onDestroy
+
     private fun buildTWCService(): TWCService {
         val retrofit = Retrofit.Builder()
             .baseUrl(hostUrl)
