@@ -25,7 +25,7 @@ class CounterActivity : AppCompatActivity() {
     private val THREAD_METHOD: Int = 5
     private val COROUTINES_METHOD: Int = 6
     private val REACTIVEX_METHOD: Int = 7
-    private final val method: Int = TIME_FLOW_INTERVAL
+    private final val method: Int = REACTIVEX_METHOD
 
     private lateinit var counterButton: AppCompatButton
     private lateinit var counters: MutableList<Int>
@@ -35,7 +35,8 @@ class CounterActivity : AppCompatActivity() {
     private final val msgWhatEnabledChanged = 2
     private final val TAG: String = "Coroutines"
     private lateinit var timerThread: Thread
-    private lateinit var subscription: Disposable
+    private lateinit var timerJob: Job
+    private lateinit var timerDisposable: Disposable
 
     private val timerHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -58,6 +59,38 @@ class CounterActivity : AppCompatActivity() {
         }
 
         initComponents()
+    }
+
+    override fun onDestroy() {
+        try {
+            releaseThread()
+            releaseCoroutines()
+            releaseReactiveX()
+        } catch (exception: InterruptedException) {
+            // handler exceptions here
+        }
+        super.onDestroy()
+    }
+
+    private fun releaseReactiveX() {
+        if (!timerDisposable.isDisposed) {
+            timerDisposable.dispose()
+            Log.d(TAG, "timerDisposable disposed")
+        }
+    }
+
+    private fun releaseCoroutines() {
+        if (timerJob.isActive) {
+            timerJob.cancel()
+            Log.d(TAG, "timerJob cancel")
+        }
+    }
+
+    private fun releaseThread() {
+        if (timerThread.isAlive) {
+            timerThread.interrupt()
+            Log.d(TAG, "timerThread interrupt")
+        }
     }
 
     private fun initComponents() {
@@ -92,22 +125,28 @@ class CounterActivity : AppCompatActivity() {
                 }
             }
         }
+
+        timerThread = Thread {}
+        timerJob = GlobalScope.launch { }
+        timerDisposable = counters.toFlowable().subscribeBy { }
     }
 
     private fun reactivexMethod() {
-        counters.toFlowable()
+        timerDisposable = counters.toFlowable()
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onNext = { counter ->
-                    runBlocking {
-                        Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
-                        delay(1000L)
+                    try {
+                        runBlocking {
+                            Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+                            delay(1000L)
 //                        updateButtonText(counter)
-                        updateButtonTextWithRunOnUiThread(counter)
-                    }
+                            updateButtonTextWithRunOnUiThread(counter)
+                        }
+                    } catch (exception: InterruptedException) { }
                 },
                 onError = { it.printStackTrace() },
                 onComplete = {
@@ -118,9 +157,10 @@ class CounterActivity : AppCompatActivity() {
     }
 
     private fun coroutinesMethod() {
-        GlobalScope.launch(Dispatchers.IO) {
+        timerJob = GlobalScope.launch(Dispatchers.IO) {
             currentCount = 0
             repeat(maxSecond) {
+                Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
                 delay(1000L)
                 currentCount++
                 updateButtonTextWithRunOnUiThread(currentCount)
@@ -132,10 +172,23 @@ class CounterActivity : AppCompatActivity() {
     private fun threadMethod() {
         timerThread = Thread {
             currentCount = 0
+            var isInterrupted = false
             repeat(maxSecond) {
-                SystemClock.sleep(1000L)
-                currentCount++
-                updateButtonTextWithRunOnUiThread(currentCount)
+                if (isInterrupted) {
+                    return@repeat
+                }
+
+                try {
+                    Log.d(TAG, "Loop Thread: ${Thread.currentThread().name}")
+                    Thread.sleep(1000L)
+                    currentCount++
+                    updateButtonTextWithRunOnUiThread(currentCount)
+                } catch (exception: InterruptedException) {
+                    // handler exceptions here
+                    Log.d(TAG, "timerThread interrupt caught")
+                    timerThread.interrupt()
+                    isInterrupted = true
+                }
             }
             updateButtonEnabledWithRunOnUiThread()
         }
@@ -164,10 +217,10 @@ class CounterActivity : AppCompatActivity() {
     }
 
     private fun timeFlowInterval() {
-        subscription = Observable.interval(1L, TimeUnit.SECONDS)
+        timerDisposable = Observable.interval(1L, TimeUnit.SECONDS)
             .timeInterval()
             .takeWhile {
-                it.value() < 10
+                it.value() < maxSecond
             }
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
